@@ -41,7 +41,7 @@ function FormularioRegistro() {
                 senha: senha
             }
 
-            await axios.post(' colocar depois registro', data)
+            await axios.post('http://localhost:4000/register', data)
 
             resetForm()
 
