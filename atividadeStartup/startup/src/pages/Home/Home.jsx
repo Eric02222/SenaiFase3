@@ -1,12 +1,33 @@
-import { useState } from "react"
+import { useEffectEvent, useState } from "react"
+import { useAuth } from "../../context/Context"
+import { useNavigate } from "react-router"
+import Modal from "../../components/modal/Modal";
+import FormularioVeiculos from "../../components/formularioVeiculos/FormularioVeiculos";
 
 function Home() {
   const [veiculos, setVeiculos] = useState([]);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [modalAberto, setModalAberto] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      navigate('/DashBoard')
+    }
+  }, [user, navigate])
 
   const getVeiculos = async () => {
-    
+    try {
+      const res = await axios.get("http://localhost:3000/adicionar rota veiculos");
+      setVeiculos(res.data)
+    } catch {
+      console.log(e)
+    }
   }
 
+  useEffectEvent(() => {
+    getVeiculos()
+  }, [])
 
   return (
     <div>
@@ -14,7 +35,7 @@ function Home() {
 
       <div>
         <div>
-          <button>Adicionar Veiculo</button>
+          <button onClick={setModalAberto(true)}>Adicionar Veiculo</button>
         </div>
 
         <div>
@@ -37,8 +58,11 @@ function Home() {
             </thead>
 
             <tbody>
-              {/* utilizar {veiculos.map(() => {  aplicar lista  })} */}
-              <tr key={'id veiculo'}>
+              <div>
+                <button>Editar Veiculo</button>
+                <button>Excluir Veiculo</button>
+              </div>
+              <tr key={veiculos.id}>
                 <td>{veiculos.id}</td>
                 <td>{veiculos.nome}</td>
                 <td>{veiculos.modelo}</td>
@@ -46,8 +70,7 @@ function Home() {
                 <td>{veiculos.marca}</td>
                 <td>{veiculos.status_bateria}</td>
                 <td>{veiculos.ativo}</td>
-                <td>{veiculos.usuario} </td>
-                <td>{veiculos.dataHora_cadastro}</td>
+                <td>{veiculos.dataHora_cadastro} </td>
                 <td>{veiculos.dataHora_atualização}</td>
               </tr>
             </tbody>
@@ -55,6 +78,8 @@ function Home() {
         </div>
       </div>
 
+      {/* ADICIONAR COMPONENTE DE CADASTRO DE VEICULOS */}
+      <Modal isOpen={modalAberto} onClose={() => setModalAberto(false)} ><FormularioVeiculos/></Modal>
 
     </div>
   )

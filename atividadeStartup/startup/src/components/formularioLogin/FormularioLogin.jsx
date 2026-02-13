@@ -28,7 +28,7 @@ function FormularioLogin() {
                 email: email,
                 senha: senha
             }
-             const res = await axios.post('http://localhost:3000/login', data)
+             const res = await axios.post('http://localhost:3000/usuarios/login', data)
 
             if (res.data.length === 0) {
                 return alert('Usuario não encontrado')
@@ -50,7 +50,7 @@ function FormularioLogin() {
 
     return (
         <div>
-            <form action={handleSubmitLogin}>
+            <form onSubmit={handleSubmitLogin}>
                 <h2>Criar Usuários</h2>
                 <div>
                     <label htmlFor="emailLogin">Email</label>

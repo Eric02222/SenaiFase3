@@ -13,13 +13,13 @@ CREATE TABLE veiculo (
     modelo VARCHAR(150) NOT NULL,
     ano VARCHAR(150),
     marca VARCHAR(150),
-    status_bateria INT,
-    usuario_cadastro INT,
-    usuario_atualização INT,
-    dataHora_cadastro TIME,
-    dataHora_atualização TIME,
-    dataHora_exclusao TIME,
-    ativo INT,
+    status_bateria INT NULL,
+    usuario_cadastro INT NULL,
+    usuario_atualização INT NULL,
+    dataHora_cadastro TIME NULL,
+    dataHora_atualização TIME NULL,
+    dataHora_exclusao TIME NULL,
+    ativo INT NOT NULL DEFAULT 1,
     FOREIGN KEY (usuario_cadastro)
     REFERENCES usuario (id_usuario)
 );

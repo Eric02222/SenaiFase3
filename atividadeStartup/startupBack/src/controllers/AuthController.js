@@ -1,11 +1,12 @@
 import db from "../config/db.js";
 
 class AuthController {
-    
+    constructor() { }
+
     async register(req, res) {
         try {
 
-            const { 
+            const {
                 nome, email, senha
             } = req.body;
 
@@ -14,22 +15,16 @@ class AuthController {
             }
 
             const [users] = await db.query("SELECT * FROM usuarios WHERE email = ?", [email]);
-            
+
             if (users.length > 0) {
                 return res.status(409).json({ error: "Usuário já existe" });
             }
 
-            const sql = `
-                INSERT INTO usuarios 
-                (nome, email, senha) 
-                VALUES (?, ?, ?)
-            `;
-            
             const values = [
                 nome, email, senha
             ];
 
-            const [result] = await db.query(sql, values);
+            const [result] = await db.query(`INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)`, values);
 
             return res.status(201).json({
                 message: "Usuário criado com sucesso",
@@ -51,7 +46,7 @@ class AuthController {
             const { email, senha } = req.body;
 
             const [users] = await db.query("SELECT * FROM usuarios WHERE email = ?", [email]);
-            
+
             if (users.length === 0) {
                 return res.status(401).json({ error: "Credenciais inválidas" });
             }
