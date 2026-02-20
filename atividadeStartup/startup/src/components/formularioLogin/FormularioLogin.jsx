@@ -2,10 +2,10 @@ import { useState } from "react"
 import axios from 'axios'
 import { useNavigate } from "react-router"
 import { useAuth } from "../../context/Context"
-
+import styles from "./FormularioLogin.module.css";
 
 function FormularioLogin() {
-    const {login} = useAuth
+    const {login} = useAuth()
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -28,7 +28,7 @@ function FormularioLogin() {
                 email: email,
                 senha: senha
             }
-             const res = await axios.post('http://localhost:3000/usuarios/login', data)
+             const res = await axios.post('http://localhost:3000/auth/login', data)
 
             if (res.data.length === 0) {
                 return alert('Usuario não encontrado')
@@ -41,7 +41,7 @@ function FormularioLogin() {
             resetForm()
             login(dataUsuario)
             alert("login efetuado com sucesso");
-            navigate('/main')
+            navigate('/home')
         } catch (error) {
             console.error("Erro ao criar usuario", error)
             alert('Erro ao criar usuario')
@@ -49,22 +49,23 @@ function FormularioLogin() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmitLogin}>
-                <h2>Criar Usuários</h2>
-                <div>
-                    <label htmlFor="emailLogin">Email</label>
-                    <input type="text" id='emailLogin' value={email} onChange={handleEmailChange}/>
+        <div className={styles.container}>
+            <form onSubmit={handleSubmitLogin} className={styles.card}>
+                <h2 className={styles.titulo}>Acesso ao Sistema</h2>
+
+                <div className={styles.inputGroup}>
+                    <label htmlFor="emailLogin" className={styles.label}>Email</label>
+                    <input type="email" id='emailLogin' value={email} onChange={handleEmailChange} required className={styles.input}/>
                 </div>
 
-                <div>
-                    <label htmlFor="senhaLogin">Senha</label>
-                    <input type="text" id='senhaLogin' value={senha} onChange={handleSenhaChange} />
+                <div className={styles.inputGroup}>
+                    <label htmlFor="senhaLogin" className={styles.label}>Senha</label>
+                    <input type="password" id='senhaLogin' value={senha} onChange={handleSenhaChange} required className={styles.input}/>
                     
                 </div>
 
                 <div>
-                    <button type='submit'>
+                    <button type='submit' className={styles.btnPrincipal}>
                         Entrar Usuário
                     </button>
                 </div>
