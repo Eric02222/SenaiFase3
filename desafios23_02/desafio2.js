@@ -23,10 +23,8 @@ function removerUltimoMembro(personagens) {
 function removerPrimeiroMembro(personagens) {
     let gangue = personagens.map(personagens => personagens.toLowerCase());
 
-     
-    //fiz errado arrumar
-    if (!gangue[0].filter((membro) => membro.toLowerCase().includes('tina'))) {
-        gangue.push("");
+    if (gangue.filter((membro) => membro.length < 5)) {
+        gangue.shift();
     }
 
     return gangue;
@@ -36,8 +34,10 @@ function removerPrimeiroMembro(personagens) {
 function adicionarTina(personagens) {
     let gangue = personagens.map(personagens => personagens.toLowerCase());
 
-    if (gangue.filter((membro) => membro.length < 5)) {
-        gangue.shift();
+     
+    //fiz errado arrumar
+    if (gangue.filter((membro) => membro.toLowerCase().includes('a'))) {
+        gangue.push("Tina");
     }
 
     return gangue;
