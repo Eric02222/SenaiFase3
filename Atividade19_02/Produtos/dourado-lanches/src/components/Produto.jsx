@@ -63,8 +63,8 @@ function Produto() {
         try {
             const payload = {
                 nome: tituloEdit,
-                descricao: descricaoEdit,
-                valor: Number(valorEdit) > 0 ? valorEdit : 0
+                valor: Number(valorEdit) > 0 ? valorEdit : 0,
+                descricao: descricaoEdit
             }
 
             if (modo === "add") {

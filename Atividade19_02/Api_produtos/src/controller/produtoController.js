@@ -51,14 +51,13 @@ const adicionarProduto = async (req, res) => {
         const descricao = req.body.descricao;
         const valor = req.body.valor;
 
-        const [results] = await db.query("INSERT INTO produto VALUES (?, ?, ?)", [nome, descricao, valor])
+        const [results] = await db.query("INSERT INTO produto (nome, valor, descricao) VALUES (?, ?, ?)", [nome, valor, descricao])
 
         if (results.affectedRows === 0) return res.status(400).json({ message: "Produto não foi criado." })
 
         return res.status(201).json({ message: "Produto criado com sucesso!" })
     } catch (error) {
-        console.log('Erro: ', error).res.status(400).json({ message: 'Erro ao criar produto', error: error.message })
-
+        res.status(400).json({ message: 'Erro ao criar produto', error: error.message })
     }
 
 
