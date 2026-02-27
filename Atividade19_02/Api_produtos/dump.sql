@@ -5,7 +5,7 @@ CREATE TABLE `dourado_lanches`.`produto` (
   `nome` VARCHAR(45) NULL,
   `valor` DECIMAL(7,2) NULL,
   `descricao` VARCHAR(255) NULL,
-  `ativo` INT NULL,
+  `ativo` INT NULL DEFAULT 1,
   PRIMARY KEY (`id`));
 
 

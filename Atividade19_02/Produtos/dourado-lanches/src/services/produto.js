@@ -10,25 +10,31 @@ export async function getProdutos() {
 
 export async function postProduto(produto) {
     const res = await api.post("/produto", produto)
-    if (res.status === 200) {
-        return true;
+
+    let r = "";
+    if (res.status === 201) {
+        r = res.message;
     }
-    return false;
+
+    return r;
 }
 
 export async function patchProduto(id, produto) {
     const res = await api.patch(`/produto/${id}`, produto);
-    if (res.status === 200) {
-        return true;
+
+    let r = "";
+    if (res.status === 200) { 
+        r = res.message;
     }
-    return false;
+    return r;
 }
 
 export async function deleteProduto(id) {
     const res = await api.delete(`/produto/${id}`);
 
+    let r = "";
     if (res.status === 200) {
-        return true;
+        r = res.message;
     }
-    return false;
+    return r;
 }

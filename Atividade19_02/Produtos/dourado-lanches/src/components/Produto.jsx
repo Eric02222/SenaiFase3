@@ -70,20 +70,28 @@ function Produto() {
             if (modo === "add") {
                 const ok = await postProduto(payload);
 
-                if (!ok) console.log("Falha ao adicionar produto.");
-                return;
+                if (ok === "") {
+                    alert("Falha ao adicionar produto.")
+                    return false;
+                }
+                alert("Produto Adicionado com sucesso")
+
+                await carregarProdutos();
+                fecharModal();
             } else {
                 if (!produtoSelecionado.id) {
-                    console.log("Nenhum produto selecionado");
+                    alert("Nenhum produto selecionado");
                     return;
                 }
 
                 const ok = await patchProduto(produtoSelecionado.id, payload)
 
-                if (!ok) {
-                    console.log("Não foi possivel editar seu produto")
+                if (ok === "") {
+                    alert("Não foi possivel editar seu produto")
                     return;
                 }
+
+                alert("Produto editado com sucesso")
 
                 await carregarProdutos();
                 fecharModal();
@@ -93,6 +101,22 @@ function Produto() {
         }
     }
 
+    const remover = async (id) => {
+        try {
+            const excluido = await deleteProduto(id);
+
+            if (excluido === "") {
+                alert("Não deu pra excluir, se lascou")
+                return false;
+            }
+
+            alert("Excluiu o produto, Parabens")
+            await carregarProdutos();
+        } catch (error) {
+            console.log("Erro:", error);
+
+        }
+    }
 
     return (
         <div className="container">

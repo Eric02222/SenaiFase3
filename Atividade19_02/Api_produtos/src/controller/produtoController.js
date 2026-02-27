@@ -18,7 +18,7 @@ const editarProduto = async (req, res) => {
         const nomeProduto = req.body.nome;
         const descricao = req.body.descricao;
         const valor = req.body.valor;
-        const id = req.paramns.id;
+        const id = req.params.id;
 
         const [resultado] = await db.query("UPDATE produto SET nome = ?, descricao = ?, valor = ? WHERE id = ?", [nomeProduto, descricao, valor, id])
 
@@ -32,7 +32,7 @@ const editarProduto = async (req, res) => {
 
 const deletaProduto = async (req, res) => {
     try {
-        const id = req.paramns.id;
+        const id = req.params.id;
 
         const [results] = await db.query("DELETE FROM produto WHERE id = ?", [id])
 
@@ -51,11 +51,10 @@ const adicionarProduto = async (req, res) => {
         const descricao = req.body.descricao;
         const valor = req.body.valor;
 
-        const [results] = await db.query("INSERT INTO produto (nome, valor, descricao) VALUES (?, ?, ?)", [nome, valor, descricao])
-
+        const [results] = await db.query("INSERT INTO produto (nome, valor, descricao, ativo) VALUES (?, ?, ?, ?)", [nome, valor, descricao, 1])
         if (results.affectedRows === 0) return res.status(400).json({ message: "Produto não foi criado." })
 
-        return res.status(201).json({ message: "Produto criado com sucesso!" })
+        return res.status(201).json({ message: "Produto criado com sucesso!"})
     } catch (error) {
         res.status(400).json({ message: 'Erro ao criar produto', error: error.message })
     }
