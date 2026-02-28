@@ -16,10 +16,10 @@ function adicionarFrajolaInicio(personagens) {
 
 function moverFrajolaProFinal(personagens) {
     if (personagens.length > 2) {
-        let indiceFrajola = personagens.findIndex(nome => nome.toLowerCase() === 'frajola');
+        let Frajola = personagens.findIndex(nome => nome.toLowerCase() === 'frajola');
         
-        if (indiceFrajola !== -1) {
-            let [frajolaRemovido] = personagens.splice(indiceFrajola, 1);
+        if (Frajola !== -1) {
+            let [frajolaRemovido] = personagens.splice(Frajola, 1);
             
             personagens.push(frajolaRemovido);
         }
@@ -39,25 +39,23 @@ function verificarLetrasRepetidas(personagens) {
 function filtrarOutrasEspecies(personagens) {
     return personagens.filter(nome => {
         let nomeMin = nome.toLowerCase();
-        let ehGato = gatos.includes(nomeMin);
-        let ehAve = aves.includes(nomeMin);
+        let gato = gatos.includes(nomeMin);
+        let ave = aves.includes(nomeMin);
         
-        return !ehGato && !ehAve;
+        return !gato && !ave;
     });
 }
 
 function gerenciarEpisodio(personagens) {
-    console.log('Elenco Inicial:', [...personagens]);
-
     adicionarPiuPiu(personagens);
     adicionarFrajolaInicio(personagens);
     moverFrajolaProFinal(personagens);
 
-    let todosTemRepetida = verificarLetrasRepetidas(personagens);
+    let todosRepetida = verificarLetrasRepetidas(personagens);
     let outrasEspecies = filtrarOutrasEspecies(personagens);
 
     console.log('Elenco Atualizado:', personagens);
-    console.log('Todos têm letras repetidas?:', todosTemRepetida ? 'Sim!' : 'Não.');
+    console.log('Todos têm letras repetidas?:', todosRepetida ? 'Sim!' : 'Não.');
     console.log('Nem gato, nem ave:', outrasEspecies);
 }
 
