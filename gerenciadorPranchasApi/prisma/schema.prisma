@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = "mysql://root:senai@localhost:3306/crudPranchas"
+}
+
+
+model Prancha {
+    id                  Int       @id @default(autoincrement())
+    modelo              String   
+    tamanho             String    
+    largura             String?    
+    espessura           String?  
+    volume              Float?    
+    material            String?
+    condicao            String?  @default("NOVA")
+    preco               Decimal? @db.Decimal(10, 2)
+    data_criacao        DateTime @default(now()) @map("created_at")
+
+    @@map("prancha")
+}

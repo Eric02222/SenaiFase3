@@ -36,8 +36,6 @@ function encontrarCoiote(personagens) {
 }
 
 function executarFusao(personagens) {
-    console.log('Lista Inicial:', [...personagens]);
-
     adicionarCoiote(personagens);
     personagens = filtrarVogaisConsecutivas(personagens);
     
