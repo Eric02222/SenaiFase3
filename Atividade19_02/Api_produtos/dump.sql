@@ -9,6 +9,25 @@ CREATE TABLE `dourado_lanches`.`produto` (
   PRIMARY KEY (`id`));
 
 
+CREATE TABLE usuario (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    senha VARCHAR(100),
+    tipo_usuario INT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE token (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(300),
+    type VARCHAR(300),
+    expiresAt  DATETIME,
+    revoked   BOOLEAN DEFAULT false,
+    usuario INT,
+    FOREIGN KEY (usuario )
+    REFERENCES usuario (id)
+);
+
 INSERT INTO `dourado_lanches`.`produto` (`nome`, `valor`, `descricao`, `ativo`) VALUES
 ('X-Burguer', 15.00, 'Pão, hambúrguer de carne 150g e queijo prato', 1),
 ('X-Salada', 18.00, 'Pão, hambúrguer, queijo prato, alface, tomate e maionese da casa', 1),

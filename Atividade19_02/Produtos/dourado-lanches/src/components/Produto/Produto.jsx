@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProdutos, postProduto, deleteProduto, patchProduto } from "../services/produto";
-import ModalProduto from "./Modal";
-import EditarProduto from "./EditarProduto";
+import { getProdutos, postProduto, deleteProduto, patchProduto } from "../../services/produto";
+import ModalProduto from "../Modal/Modal";
+import EditarProduto from "../EditarProduto/EditarProduto";
 
 function Produto() {
     const [produtos, setProdutos] = useState([]);

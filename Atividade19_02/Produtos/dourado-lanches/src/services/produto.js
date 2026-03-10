@@ -23,7 +23,7 @@ export async function patchProduto(id, produto) {
     const res = await api.patch(`/produto/${id}`, produto);
 
     let r = "";
-    if (res.status === 200) { 
+    if (res.status === 200) {
         r = res.message;
     }
     return r;
@@ -38,3 +38,6 @@ export async function deleteProduto(id) {
     }
     return r;
 }
+
+
+
